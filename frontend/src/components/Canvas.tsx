@@ -6,15 +6,12 @@ const rows = 50
 const cols = 50
 
 export const Canvas = () => {
-
-    
     const pixels: Pixel[] = [];
     for (let row = 0; row < rows; row++) {
         for (let col = 0; col < cols; col++) {
             pixels.push({x:col, y:row, color:'#3495eb', user:'test'})
         }
     }
-
     return (
         <div 
             style={{ 

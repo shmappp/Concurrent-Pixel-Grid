@@ -1,0 +1,17 @@
+:root {
+  --bg-color: #121212;
+  --text-color: #ffffff;
+
+}
+
+.light-theme {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  font-family: sans-serif;
+}
