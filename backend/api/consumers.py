@@ -17,18 +17,20 @@ class PixelConsumer(WebsocketConsumer):
         n, m = get_canvas_size()
         canvas = load_canvas_state(n, m)
 
-        self.send({
+        self.send(text_data=json.dumps({
             'type': 'canvas_init',
             'canvas': canvas
-        })
+        }))
 
     def receive(self, text_data):
         data = json.loads(text_data)
+        print(f'DATA: {data}')
         if data['type'] == 'place_pixel':
             x = int(data['x'])
             y = int(data['y'])
             color = data['color']
             user = data.get('user', 'anonymous')
+            print(f'USER: {user}')
         
             new_pixel, _ = Pixel.objects.get_or_create(x=x, y=y, color=color, user=user)
             new_pixel.save()
@@ -45,11 +47,11 @@ class PixelConsumer(WebsocketConsumer):
             )
     
     def pixel_update(self, event):
-        self.send({
+        self.send(text_data=json.dumps({
             'type': 'update_pixel',
             'x': event['x'],
             'y': event['y'],
             'color': event['color'],
-            'nickname': event['nickname']
+            'user': event['user']
         }
-        )
+        ))
