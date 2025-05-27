@@ -5,20 +5,30 @@ import { useCanvasSocket } from '../hooks/useCanvasSocket';
 
 const rows = 50
 const cols = 50
+const color = '#FF0000' 
+interface CanvasProps {
+    user: string|null
+}
 
-export const Canvas = (user: string) => {
+export const Canvas = ({ user }:CanvasProps ) => {
     const [pixels, setPixels] = useState<Pixel[]>(Array(rows*cols).fill(null));
     const { sendPixelUpdate, lastMessage, isConnected } = useCanvasSocket(user);
 
     useEffect(() => {
-        let defaultPixels: Pixel[] = []
-        for (let row = 0; row < rows; row++) {
-            for (let col = 0; col < cols; col++) {
-                defaultPixels.push({x:col, y:row, color:'#FFFFFF', user:null})
+        if (lastMessage) {
+            if (lastMessage.type === 'canvas_init') {
+                setPixels(lastMessage.canvas)
+            }
+            else if (lastMessage.type === 'update_pixel') {
+                setPixels((prevState) => {
+                    const updated = [...prevState];
+                    const idx = lastMessage.y*cols + lastMessage.x;
+                    updated[idx] = {x: lastMessage.x, y: lastMessage.y, color: lastMessage.color, user: lastMessage.user};
+                    return updated;
+                })
             }
         }
-        setPixels(defaultPixels);
-    }, [])
+    }, [lastMessage])
 
     return (
         <div 
@@ -30,7 +40,7 @@ export const Canvas = (user: string) => {
                 gap:'1px'
             }}>
             {pixels.map((pixel, idx) => (
-                pixel && <Square color={pixel.color} />
+                pixel && <Square pixel={pixel} newUser={user} newColor={color} sendPixelUpdate={sendPixelUpdate}/>
             ))}
         </div>
     )

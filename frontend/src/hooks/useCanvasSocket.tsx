@@ -3,7 +3,7 @@ import { type Pixel } from '../types'
 
 
 export const useCanvasSocket = (user: string) => {
-    const socketUrl = `ws://localhost:8000/ws/socket-server/` // TODO: change to production link 
+    const socketUrl = `ws://localhost:5000/ws/socket-server/` // TODO: change to production link 
 
     const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
         socketUrl,

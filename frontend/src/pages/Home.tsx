@@ -10,7 +10,7 @@ export const Home = () => {
                 <h1>Place</h1>
             </div>
             <div style={{ justifyContent:'center' }}>
-                <Canvas />
+                <Canvas user={null}/>
             </div>
         </div>
     )
