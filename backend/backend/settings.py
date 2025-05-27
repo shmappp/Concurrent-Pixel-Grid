@@ -45,6 +45,12 @@ INSTALLED_APPS = [
 
 ASGI_APPLICATION = 'backend.asgi.application'
 
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer' # TODO: replace with Redis
+    }
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
