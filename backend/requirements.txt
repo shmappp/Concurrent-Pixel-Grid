@@ -1,3 +1,4 @@
 django
 djangorestframework
 channels[daphne]
+django-cors-headers
