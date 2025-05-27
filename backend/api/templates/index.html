@@ -1,0 +1,18 @@
+<body>
+<div>Hello World!</div>
+<div>
+    <input type="text" placeholder="x"><br>
+    <input type="text" placeholder="y"><br>
+    <input type="submit" onClick="">
+</div>
+<script type="text/javascript">
+    let url = `ws://${window.location.host}/ws/socket-server/`
+    
+    const pixelSocket = new WebSocket(url)
+
+    pixelSocket.onmessage = (e) => {
+        let data = JSON.parse(e.data)
+        console.log('Data:', data)
+    }
+</script>
+</body>
