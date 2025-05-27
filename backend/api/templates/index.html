@@ -1,9 +1,11 @@
 <body>
 <div>Hello World!</div>
 <div>
-    <input type="text" placeholder="x"><br>
-    <input type="text" placeholder="y"><br>
-    <input type="submit" onClick="">
+    <form id="form">
+        <input name="x" type="text" placeholder="x"/><br>
+        <input name="y" type="text" placeholder="y"/><br>
+        <input type="submit">
+    </form>
 </div>
 <script type="text/javascript">
     let url = `ws://${window.location.host}/ws/socket-server/`
@@ -14,5 +16,17 @@
         let data = JSON.parse(e.data)
         console.log('Data:', data)
     }
+
+    let form = document.getElementById('form')
+    form.addEventListener('submit', (e) => {
+        e.preventDefault()
+        let x = e.target.x.value
+        let y = e.target.y.value
+        pixelSocket.send(JSON.stringify({
+            'x': x,
+            'y': y
+        }))
+        form.reset()
+    } )
 </script>
 </body>
