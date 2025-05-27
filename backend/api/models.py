@@ -1,6 +1,6 @@
 from django.db import models
 
-class Pixel(models.model):
+class Pixel(models.Model):
     x = models.PositiveIntegerField()
     y = models.PositiveIntegerField()
     color = models.CharField(max_length=7) 
