@@ -14,8 +14,11 @@ export const Square = React.memo(({ pixel, onClick }: SquareProps) => {
                 style={{ backgroundColor: pixel.color }} 
                 onClick={() => onClick(pixel)} 
                 data-tooltip-id='pixel-tooltip'
-                data-tooltip-html={`x:${pixel.x} y:${pixel.y} <br> color: <font color=${pixel.color}> ${pixel.color} </font> <br> user: ${pixel.user}`} />
+                data-tooltip-html=
+                {`x:${pixel.x} y:${pixel.y} <br> 
+                color: <font color=${pixel.color}> ${pixel.color} </font> <br> 
+                user: ${pixel.user} <br>
+                colored at: ${pixel.colored_at}`} />
         </>
- 
     )
 })

@@ -37,7 +37,7 @@ export const Canvas = React.memo(({ resetTrigger }:CanvasProps ) => {
                 setPixels((prevState) => {
                     const updated = [...prevState];
                     const idx = lastMessage.y*cols + lastMessage.x;
-                    updated[idx] = {x: lastMessage.x, y: lastMessage.y, color: lastMessage.color, user: lastMessage.user};
+                    updated[idx] = {x: lastMessage.x, y: lastMessage.y, color: lastMessage.color, user: lastMessage.user, colored_at: lastMessage.colored_at};
                     return updated;
                 })
             }

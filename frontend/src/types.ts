@@ -3,4 +3,5 @@ export type Pixel = {
     y: number;
     color: string;
     user: string | null;
+    colored_at: Date | null;
 }

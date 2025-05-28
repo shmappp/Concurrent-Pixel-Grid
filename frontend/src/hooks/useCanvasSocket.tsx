@@ -15,7 +15,7 @@ export const useCanvasSocket = () => {
     )
 
     const sendPixelUpdate = useCallback((pixel: Pixel) => {
-        sendJsonMessage({ type: 'place_pixel', x:pixel.x, y:pixel.y, color:pixel.color, user:pixel.user })
+        sendJsonMessage({ type: 'place_pixel', x:pixel.x, y:pixel.y, color:pixel.color, user:pixel.user, colored_at:Date.now()})
     }, [sendJsonMessage])
 
     return {
