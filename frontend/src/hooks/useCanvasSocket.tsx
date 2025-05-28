@@ -1,8 +1,9 @@
 import useWebSocket, { ReadyState } from 'react-use-websocket'
 import { type Pixel } from '../types'
+import { useCallback } from 'react'
 
 
-export const useCanvasSocket = (user: string) => {
+export const useCanvasSocket = () => {
     const socketUrl = `ws://localhost:5000/ws/socket-server/` // TODO: change to production link 
 
     const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
@@ -13,10 +14,12 @@ export const useCanvasSocket = (user: string) => {
         }
     )
 
+    const sendPixelUpdate = useCallback((pixel: Pixel) => {
+        sendJsonMessage({ type: 'place_pixel', x:pixel.x, y:pixel.y, color:pixel.color, user:pixel.user })
+    }, [sendJsonMessage])
+
     return {
-        sendPixelUpdate: (pixel: Pixel) => {
-            sendJsonMessage({ type: 'place_pixel', x:pixel.x, y:pixel.y, color:pixel.color, user:user });
-        },
+        sendPixelUpdate,
         sendResetUpdate: () => {
             sendJsonMessage({ type: 'reset_canvas' });
         },

@@ -5,16 +5,16 @@ import { useCanvasSocket } from '../hooks/useCanvasSocket';
 
 const rows = 50
 const cols = 50
-const color = '#FF0000' 
 
 interface CanvasProps {
     user: string|null,
+    selectedColor: string|null,
     resetTrigger: number
 }
 
-export const Canvas = ({ user, resetTrigger }:CanvasProps ) => {
+export const Canvas = React.memo(({ user, selectedColor, resetTrigger }:CanvasProps ) => {
     const [pixels, setPixels] = useState<Pixel[]>(Array(rows*cols).fill(null));
-    const { sendPixelUpdate, sendResetUpdate, lastMessage, isConnected } = useCanvasSocket(user);
+    const { sendPixelUpdate, sendResetUpdate, lastMessage, isConnected } = useCanvasSocket();
 
     useEffect(() => {
         if (lastMessage) {
@@ -45,9 +45,11 @@ export const Canvas = ({ user, resetTrigger }:CanvasProps ) => {
                 gridTemplateRows: `repeat(${rows}, 20px)`,
                 gap:'1px'
             }}>
-            {pixels.map((pixel, idx) => (
-                pixel && <Square pixel={pixel} newUser={user} newColor={color} sendPixelUpdate={sendPixelUpdate}/>
-            ))}
+            {pixels.map((pixel, idx) => {
+                const displayPixel = pixel || { x: Math.floor(idx % cols), y: Math.floor(idx / cols), color: '#FFFFFF', user: null };
+                return (<Square key={`${displayPixel.x}-${displayPixel.y}`} pixel={displayPixel} newUser={user} newColor={selectedColor} sendPixelUpdate={sendPixelUpdate}/>)
+            })}
         </div>
     )
 }
+)
