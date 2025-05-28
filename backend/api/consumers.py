@@ -2,7 +2,7 @@ import json
 from channels.generic.websocket import WebsocketConsumer
 from .models import Pixel
 from asgiref.sync import async_to_sync
-from .utils import load_canvas_state, get_canvas_size
+from .utils import reset_canvas_state, load_canvas_state, get_canvas_size
 
 class PixelConsumer(WebsocketConsumer):
     def connect(self):
@@ -45,6 +45,19 @@ class PixelConsumer(WebsocketConsumer):
                     'user': user
                 }
             )
+        if data['type'] == 'reset_canvas':
+            n, m = get_canvas_size()
+            canvas = reset_canvas_state(n, m)
+            Pixel.objects.all().delete() # TODO: change this if we want to implement multiple rooms - should only delete the pixels corresponding to the current room/session
+            print('CANVAS RESET')
+            async_to_sync(self.channel_layer.group_send)(
+                self.room_group_name,
+                {
+                    'type': 'canvas_reset',
+                    'canvas': canvas
+                }
+            )
+
     
     def pixel_update(self, event):
         self.send(text_data=json.dumps({
@@ -55,3 +68,9 @@ class PixelConsumer(WebsocketConsumer):
             'user': event['user']
         }
         ))
+
+    def canvas_reset(self, event):
+        self.send(text_data=json.dumps({
+            'type': 'reset_canvas',
+            'canvas': event['canvas']
+        }))

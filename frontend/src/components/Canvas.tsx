@@ -6,17 +6,19 @@ import { useCanvasSocket } from '../hooks/useCanvasSocket';
 const rows = 50
 const cols = 50
 const color = '#FF0000' 
+
 interface CanvasProps {
-    user: string|null
+    user: string|null,
+    resetTrigger: number
 }
 
-export const Canvas = ({ user }:CanvasProps ) => {
+export const Canvas = ({ user, resetTrigger }:CanvasProps ) => {
     const [pixels, setPixels] = useState<Pixel[]>(Array(rows*cols).fill(null));
-    const { sendPixelUpdate, lastMessage, isConnected } = useCanvasSocket(user);
+    const { sendPixelUpdate, sendResetUpdate, lastMessage, isConnected } = useCanvasSocket(user);
 
     useEffect(() => {
         if (lastMessage) {
-            if (lastMessage.type === 'canvas_init') {
+            if (lastMessage.type === 'canvas_init' || lastMessage.type === 'reset_canvas') {
                 setPixels(lastMessage.canvas)
             }
             else if (lastMessage.type === 'update_pixel') {
@@ -29,6 +31,10 @@ export const Canvas = ({ user }:CanvasProps ) => {
             }
         }
     }, [lastMessage])
+
+    useEffect(() => {
+        if (resetTrigger) {sendResetUpdate()}
+    }, [resetTrigger])
 
     return (
         <div 

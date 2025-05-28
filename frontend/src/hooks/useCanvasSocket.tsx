@@ -17,6 +17,9 @@ export const useCanvasSocket = (user: string) => {
         sendPixelUpdate: (pixel: Pixel) => {
             sendJsonMessage({ type: 'place_pixel', x:pixel.x, y:pixel.y, color:pixel.color, user:user });
         },
+        sendResetUpdate: () => {
+            sendJsonMessage({ type: 'reset_canvas' });
+        },
         lastMessage: lastJsonMessage,
         readyState,
         isConnected: readyState === ReadyState.OPEN
