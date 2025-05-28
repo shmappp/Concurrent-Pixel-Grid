@@ -3,6 +3,7 @@ from channels.generic.websocket import WebsocketConsumer
 from .models import Pixel
 from asgiref.sync import async_to_sync
 from .utils import reset_canvas_state, load_canvas_state, get_canvas_size
+from datetime import datetime
 
 class PixelConsumer(WebsocketConsumer):
     def connect(self):
@@ -30,7 +31,7 @@ class PixelConsumer(WebsocketConsumer):
             y = int(data['y'])
             color = data['color']
             user = data.get('user', 'anonymous')
-            colored_at = data['colored_at']
+            colored_at = datetime.fromtimestamp(data['colored_at'] / 1000).isoformat()
             print(f'USER: {user}')
         
             new_pixel, _ = Pixel.objects.update_or_create(x=x, y=y, color=color, user=user)
