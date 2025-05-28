@@ -6,14 +6,15 @@ import { useCanvasContext } from '../context/CanvasContext';
 import { Tooltip } from 'react-tooltip'
 import 'react-tooltip/dist/react-tooltip.css'
 
-const rows = 50
-const cols = 50
 
 interface CanvasProps {
     resetTrigger: number
 }
 
 export const Canvas = React.memo(({ resetTrigger }:CanvasProps ) => {
+    let rows = 50;
+    let cols = 50;
+    console.log(rows*cols)
     const [pixels, setPixels] = useState<Pixel[]>(Array(rows*cols).fill(null));
     const { sendPixelUpdate, sendResetUpdate, lastMessage, isConnected } = useCanvasSocket();
     const { user, selectedColor } = useCanvasContext();
@@ -32,6 +33,8 @@ export const Canvas = React.memo(({ resetTrigger }:CanvasProps ) => {
         if (lastMessage) {
             if (lastMessage.type === 'canvas_init' || lastMessage.type === 'reset_canvas') {
                 setPixels(lastMessage.canvas)
+                rows = lastMessage.rows
+                cols = lastMessage.cols
             }
             else if (lastMessage.type === 'update_pixel') {
                 setPixels((prevState) => {

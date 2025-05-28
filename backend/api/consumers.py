@@ -17,10 +17,13 @@ class PixelConsumer(WebsocketConsumer):
 
         n, m = get_canvas_size()
         canvas = load_canvas_state(n, m)
+        print(f'CANVAS SIZE: {n}, {m}')
 
         self.send(text_data=json.dumps({
             'type': 'canvas_init',
             'canvas': canvas,
+            'rows': n,
+            'columns': m,
         }))
 
     def receive(self, text_data):
@@ -58,6 +61,8 @@ class PixelConsumer(WebsocketConsumer):
                 {
                     'type': 'canvas_reset',
                     'canvas': canvas,
+                    'rows': n,
+                    'columns': m,
                 }
             )
 
@@ -77,4 +82,6 @@ class PixelConsumer(WebsocketConsumer):
         self.send(text_data=json.dumps({
             'type': 'reset_canvas',
             'canvas': event['canvas'],
+            'rows': event['rows'],
+            'columns': event['columns'],
         }))
