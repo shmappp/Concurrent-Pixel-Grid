@@ -19,7 +19,7 @@ class PixelConsumer(WebsocketConsumer):
 
         self.send(text_data=json.dumps({
             'type': 'canvas_init',
-            'canvas': canvas
+            'canvas': canvas,
         }))
 
     def receive(self, text_data):
@@ -30,9 +30,10 @@ class PixelConsumer(WebsocketConsumer):
             y = int(data['y'])
             color = data['color']
             user = data.get('user', 'anonymous')
+            colored_at = data['colored_at']
             print(f'USER: {user}')
         
-            new_pixel, _ = Pixel.objects.get_or_create(x=x, y=y, color=color, user=user)
+            new_pixel, _ = Pixel.objects.update_or_create(x=x, y=y, color=color, user=user)
             new_pixel.save()
 
             async_to_sync(self.channel_layer.group_send)(
@@ -42,7 +43,8 @@ class PixelConsumer(WebsocketConsumer):
                     'x': x,
                     'y': y,
                     'color': color,
-                    'user': user
+                    'user': user,
+                    'colored_at': colored_at,
                 }
             )
         if data['type'] == 'reset_canvas':
@@ -54,7 +56,7 @@ class PixelConsumer(WebsocketConsumer):
                 self.room_group_name,
                 {
                     'type': 'canvas_reset',
-                    'canvas': canvas
+                    'canvas': canvas,
                 }
             )
 
@@ -65,12 +67,13 @@ class PixelConsumer(WebsocketConsumer):
             'x': event['x'],
             'y': event['y'],
             'color': event['color'],
-            'user': event['user']
+            'user': event['user'],
+            'colored_at': event['colored_at'],
         }
         ))
 
     def canvas_reset(self, event):
         self.send(text_data=json.dumps({
             'type': 'reset_canvas',
-            'canvas': event['canvas']
+            'canvas': event['canvas'],
         }))

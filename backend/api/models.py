@@ -5,7 +5,5 @@ class Pixel(models.Model):
     y = models.PositiveIntegerField()
     color = models.CharField(max_length=7, default='#FFFFFF') 
     user = models.CharField(max_length=64, null=True, blank=True)
-
-    class Meta:
-        unique_together = ('x', 'y')
+    colored_at = models.DateTimeField(auto_now_add=True, null=True)
     
