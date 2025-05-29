@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button'
+import '../css/CanvasResetButton.css'
 
 
 interface CanvasResetButtonProps {
@@ -8,6 +8,6 @@ interface CanvasResetButtonProps {
 
 export const CanvasResetButton: React.FC<CanvasResetButtonProps> = ({ onClick }) => {
     return (
-        <Button variant='warning' onClick={onClick} >Reset Canvas</Button>
+        <button className='reset-button' onClick={onClick} >Reset Canvas</button>
     )
 }

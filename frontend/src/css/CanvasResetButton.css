@@ -1,0 +1,14 @@
+.reset-button {
+    font-size: 2em;
+    font-family: "ZCOOL QingKe HuangYou", cursive;
+    border: none;
+    padding: 21px 100px;
+    background-color: #fff; 
+    right: 25vw;
+    margin: -0vh auto;
+    transition: all 0.5s;
+    color: #95190c;
+    border-right: 1px solid #eee; 
+    border-radius: 2px; 
+    border-bottom: 1px solid #ccc; 
+}
