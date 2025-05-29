@@ -1,0 +1,29 @@
+body {
+  background-color: hsl(68, 100%, 93%);
+
+}
+
+.login-center-container {
+  width: fit-content;
+  margin: 25vh auto;
+  margin-left: 10vw;
+}
+
+.login-box {
+    display: flex;
+    margin: 0 auto;
+}
+
+.login-input {
+    margin-right: 20px;
+    width: 40vw;
+    
+}
+
+.login-heading {
+  font-family: "Roboto Condensed", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: light;
+  font-size:100px
+}
