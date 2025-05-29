@@ -16,7 +16,7 @@ A real-time collaborative pixel drawing web application that allows multiple use
 
 ## Requirements
 
-### Pre-requirements
+### Pre-requisites
 
 Ensure you have Docker and Docker Compose installed. You can verify by running:
 ```
