@@ -45,4 +45,8 @@ docker-compose build
 docker-compose up
 ```
 
+3. Accessing Application
+
+Assuming you are running this on your local machine, navigate to `localhost:3000` to access the frontend.
+
 
