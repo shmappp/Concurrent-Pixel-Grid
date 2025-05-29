@@ -32,3 +32,17 @@ body {
   transform: translateY(-50%);
   left: 100%;
 }
+
+.return-button {
+    font-size: 1em;
+    font-family: "ZCOOL QingKe HuangYou", cursive;
+    border: none;
+    position: absolute;
+    background-color: #fff; 
+    transition: all 0.5s;
+    color: #95190c;
+    border-right: 1px solid #eee; 
+    border-radius: 2px; 
+    border-bottom: 1px solid #ccc; 
+}
+
