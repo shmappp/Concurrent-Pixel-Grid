@@ -12,10 +12,9 @@ interface CanvasProps {
 }
 
 export const Canvas = React.memo(({ resetTrigger }:CanvasProps ) => {
-    let rows = 50;
-    let cols = 50;
-    console.log(rows*cols)
-    const [pixels, setPixels] = useState<Pixel[]>(Array(rows*cols).fill(null));
+    const [canvasSize, setCanvasSize] = useState({ rows: 50, cols: 50 });
+    console.log(canvasSize.rows, canvasSize.cols, canvasSize.rows*canvasSize.cols);
+    const [pixels, setPixels] = useState<Pixel[]>(Array(canvasSize.rows*canvasSize.cols).fill(null));
     const { sendPixelUpdate, sendResetUpdate, lastMessage, isConnected } = useCanvasSocket();
     const { user, selectedColor } = useCanvasContext();
     const userRef = useRef(user)
@@ -32,14 +31,14 @@ export const Canvas = React.memo(({ resetTrigger }:CanvasProps ) => {
     useEffect(() => {
         if (lastMessage) {
             if (lastMessage.type === 'canvas_init' || lastMessage.type === 'reset_canvas') {
-                setPixels(lastMessage.canvas)
-                rows = lastMessage.rows
-                cols = lastMessage.cols
+                console.log(lastMessage)
+                setCanvasSize({rows: lastMessage.rows, cols: lastMessage.columns});
+                setPixels(lastMessage.canvas);
             }
             else if (lastMessage.type === 'update_pixel') {
                 setPixels((prevState) => {
                     const updated = [...prevState];
-                    const idx = lastMessage.y*cols + lastMessage.x;
+                    const idx = lastMessage.y*canvasSize.cols + lastMessage.x;
                     updated[idx] = {x: lastMessage.x, y: lastMessage.y, color: lastMessage.color, user: lastMessage.user, colored_at: lastMessage.colored_at};
                     return updated;
                 })
@@ -57,18 +56,22 @@ export const Canvas = React.memo(({ resetTrigger }:CanvasProps ) => {
         sendPixelUpdate(newPixel);
     }, [sendPixelUpdate])
 
+    if (!canvasSize.rows || !canvasSize.cols || pixels.length === 0) {
+        return <div>Loading canvas...</div>;
+    }
+
     return (
         <>
             <div 
                 style={{
                     justifyContent: 'center',
                     display: 'grid',
-                    gridTemplateColumns: `repeat(${cols}, 20px)`,
-                    gridTemplateRows: `repeat(${rows}, 20px)`,
+                    gridTemplateColumns: `repeat(${canvasSize.cols}, 20px)`,
+                    gridTemplateRows: `repeat(${canvasSize.rows}, 20px)`,
                     gap:'1px'
                 }}>
                 {pixels.map((pixel, idx) => {
-                    const displayPixel = pixel || { x: Math.floor(idx % cols), y: Math.floor(idx / cols), color: '#FFFFFF', user: null };
+                    const displayPixel = pixel || { x: idx % canvasSize.cols, y: Math.floor(idx / canvasSize.cols), color: '#FFFFFF', user: null };
                     return (<Square key={`${displayPixel.x}-${displayPixel.y}`} pixel={displayPixel} onClick={handlePixelClick}/>)
                 })}
             </div>
