@@ -31,7 +31,6 @@ export const Canvas = React.memo(({ resetTrigger }:CanvasProps ) => {
     useEffect(() => {
         if (lastMessage) {
             if (lastMessage.type === 'canvas_init' || lastMessage.type === 'reset_canvas') {
-                console.log(lastMessage)
                 setCanvasSize({rows: lastMessage.rows, cols: lastMessage.columns});
                 setPixels(lastMessage.canvas);
             }
@@ -56,9 +55,11 @@ export const Canvas = React.memo(({ resetTrigger }:CanvasProps ) => {
         sendPixelUpdate(newPixel);
     }, [sendPixelUpdate])
 
-    if (!canvasSize.rows || !canvasSize.cols || pixels.length === 0) {
+    const isCanvasReady = pixels.length === canvasSize.rows * canvasSize.cols;
+
+    if (!isCanvasReady) {
         return <div>Loading canvas...</div>;
-    }
+}
 
     return (
         <>
