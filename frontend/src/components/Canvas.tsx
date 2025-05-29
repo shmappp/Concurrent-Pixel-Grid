@@ -76,7 +76,7 @@ export const Canvas = React.memo(({ resetTrigger }:CanvasProps ) => {
                     return (<Square key={`${displayPixel.x}-${displayPixel.y}`} pixel={displayPixel} onClick={handlePixelClick}/>)
                 })}
             </div>
-            <Tooltip id="pixel-tooltip" place='right' style={{ textAlign:'center' }} />
+            <Tooltip id="pixel-tooltip" place='right' style={{ zIndex:9999, textAlign:'center' }} />
     </>
     )
 }
