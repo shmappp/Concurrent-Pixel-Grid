@@ -28,7 +28,7 @@ body {
 
 .color-picker-box {
   position: absolute;
-  top: 10%;
+  top: 12.3%;
   transform: translateY(-50%);
-  right: calc(-100% + 50rem);
+  left: 100%;
 }
