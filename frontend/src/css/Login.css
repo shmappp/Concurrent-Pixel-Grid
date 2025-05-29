@@ -1,12 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=ZCOOL+QingKe+HuangYou&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap");
+
 body {
-  background-color: hsl(68, 100%, 93%);
+  background-color: hsl(46, 100%, 66%);
 
 }
 
-.login-center-container {
+.login-container {
   width: fit-content;
   margin: 25vh auto;
   margin-left: 10vw;
+  
 }
 
 .login-box {
@@ -15,9 +19,11 @@ body {
 }
 
 .login-input {
-    margin-right: 20px;
-    width: 40vw;
-    
+    margin-right: 30px;
+    width: 50vw;
+    font-size: 60px;
+    height: 100px;
+    font-family: "ZCOOL QingKe HuangYou", cursive;
 }
 
 .login-heading {
@@ -25,5 +31,68 @@ body {
   font-optical-sizing: auto;
   font-weight: 100;
   font-style: light;
-  font-size:100px
+  font-size:120px;
+}
+
+.start-button {
+    font-size: 2.2em;
+    font-family: "ZCOOL QingKe HuangYou", cursive;
+    border: none;
+    padding: 21px 100px;
+    background-color: #fff; 
+    position: absolute; 
+    vertical-align: middle; 
+    right: 25vw;
+    margin: -0vh auto;
+    transition: all 0.5s;
+    color: #95190c;
+    border-right: 1px solid #eee; 
+    border-radius: 2px; 
+    border-bottom: 1px solid #ccc; 
+}
+
+.start-button:focus {
+    outline: 0;
+}
+
+.start-button:hover {
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+.start-button:hover::after {
+    right: -5px;
+    top: 2px;
+    width: 5px;
+}
+
+.start-button:hover::before {
+    right: -3px;
+    height: 5px;
+}
+
+
+.start-button::after {
+    content: "";
+    height: 100%;
+    width: 10px;
+    background-color: #eee;
+    right: -10px;
+    top: 5px; 
+    transform: skewY(45deg);
+    position: absolute; 
+    transition: all 0.5s; 
+}
+
+
+.start-button::before {
+    content: ""; 
+    height: 10px;
+    width: 100%; 
+    background-color: #ccc; 
+    right: -5px; 
+    top: 95px; 
+    transform: skewX(45deg); 
+    position: absolute;
+    transition: all 0.5s;
 }

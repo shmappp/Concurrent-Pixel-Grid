@@ -4,6 +4,7 @@
     width: 20px;
     border: 1px solid;
     border-color: rgb(202, 202, 196);
+    transition: all 1s;
 }
 .Pixel:hover {
     filter: brightness(0.9)

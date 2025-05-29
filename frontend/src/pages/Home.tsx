@@ -23,11 +23,7 @@ export const Home = () => {
     return (
         <div className='Home'>
             <title>Concurrent Pixel Grid</title>
-            <div style= {{ display:'flex', justifyContent:'center' }}>
-                <h1>Place</h1>
-                
-            </div>
-            <div style= {{ display:'flex', justifyContent:'center', marginBottom:'20px' }}>
+            <div style= {{ display:'flex', justifyContent:'center', margin:'20px' }}>
                 <CanvasResetButton onClick={handleCanvasResetClick} />
             </div>
             <div className='center-container'>

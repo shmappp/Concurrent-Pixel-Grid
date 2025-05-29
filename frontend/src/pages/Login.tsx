@@ -18,9 +18,9 @@ export const Login = () => {
 
     return (
         <>   
-            <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"></link>
+            
             <title>Login</title>
-            <div className='login-center-container'>
+            <div className='login-container'>
                 <TypeAnimation sequence={[
                     'Welcome to the Concurrent Pixel Grid',
                     1000,
@@ -42,8 +42,8 @@ export const Login = () => {
                 className='login-heading'
                 />
                 <div className='login-box'>
-                    <input className='login-input' placeholder='type username' onChange={(e) => setLocalUser(e.target.value)}></input>
-                    <Button variant='outline-info' onClick={handleUserChange}>  </Button>
+                    <input className='login-input' placeholder='What&apos;s your name?' onChange={(e) => setLocalUser(e.target.value)}></input>
+                    <button className="start-button" onClick={handleUserChange}> Start </button>
                 </div>
             </div>
         </>
