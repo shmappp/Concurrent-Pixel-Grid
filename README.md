@@ -4,7 +4,7 @@
 - [Concurrent Pixel Grid](#concurrent-pixel-grid)
   * [Overview](#overview)
   * [Requirements](#requirements)
-    + [Pre-requirements](#pre-requirements)
+    + [Pre-requisites](#pre-requisites)
     + [Clone the repository](#clone-the-repository)
     + [Setting Up the Development Environment](#setting-up-the-development-environment)
 
