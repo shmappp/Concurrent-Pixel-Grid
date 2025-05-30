@@ -1,0 +1,1 @@
+use redux to store global state instead of react contextprovider
