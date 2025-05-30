@@ -10,7 +10,7 @@
 
 ## Overview
 
-A real-time collaborative pixel drawing web application that allows multiple users to create pixel art together on a shared canvas. Built with React frontend and Django backend for seamless concurrent editing.
+A real-time collaborative pixel drawing web application that allows multiple users to create pixel art together on a shared canvas. Built with React frontend and Django backend, using WebSockets for seamless concurrent editing.
 
 ![Canvas Demo](https://github.com/shmappp/Concurrent-Pixel-Grid/blob/main/demos/canvas/test_canvas_20250529.gif)
 
