@@ -13,7 +13,6 @@ interface CanvasProps {
 
 export const Canvas = React.memo(({ resetTrigger }:CanvasProps ) => {
     const [canvasSize, setCanvasSize] = useState({ rows: 50, cols: 50 });
-    console.log(canvasSize.rows, canvasSize.cols, canvasSize.rows*canvasSize.cols);
     const [pixels, setPixels] = useState<Pixel[]>(Array(canvasSize.rows*canvasSize.cols).fill(null));
     const { sendPixelUpdate, sendResetUpdate, lastMessage, isConnected } = useCanvasSocket();
     const { user, selectedColor } = useCanvasContext();
@@ -51,7 +50,6 @@ export const Canvas = React.memo(({ resetTrigger }:CanvasProps ) => {
 
     const handlePixelClick = useCallback((pixel: Pixel) => {
         const newPixel: Pixel  = {...pixel, color: selectedColorRef.current, user: userRef.current};
-        console.log(newPixel);
         sendPixelUpdate(newPixel);
     }, [sendPixelUpdate])
 

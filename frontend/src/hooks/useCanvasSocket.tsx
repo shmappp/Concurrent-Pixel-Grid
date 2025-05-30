@@ -4,7 +4,7 @@ import { useCallback } from 'react'
 
 
 export const useCanvasSocket = () => {
-    const socketUrl = `ws://localhost:5000/ws/socket-server/` // TODO: change to production link 
+    const socketUrl = `ws://${import.meta.env.VITE_WS_HOST}/ws/socket-server/` // TODO: change to production link 
 
     const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
         socketUrl,
